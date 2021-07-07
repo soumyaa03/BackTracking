@@ -1,0 +1,45 @@
+public class Solution{
+
+    static ArrayList<String> res;
+    static boolean vis[][];
+    
+    
+    static void findPath_Util(int x, int y, String s, int n, int[][] m){
+        if( m[x][y] == 0 ){
+            return ;
+        }
+        if( n-1 == x && n-1 == y ){
+            res.add(s.toString());
+            return;
+        }
+        if( vis[x][y] ){
+            return;
+        }
+        vis[x][y] = true;
+
+        if( x+1 < n  ) {
+            findPath_Util(x+1, y, s+'D', n ,m);
+        }
+        if( y-1 >= 0 ) {
+            findPath_Util(x, y-1, s+'L', n ,m);
+        }
+        
+        if( y+1 < n  ) {
+            findPath_Util(x, y+1, s+'R', n ,m);
+        }
+        if( x-1 >= 0  ) {
+            findPath_Util(x-1, y, s+'U', n ,m);
+        }
+        
+        
+        vis[x][y] = false;
+    }
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        res = new ArrayList<String>();
+        vis = new boolean[n][n];
+        
+        findPath_Util(0,0,"", n, m);
+        // Collections.sort(res);
+        return res;
+    }
+ }
